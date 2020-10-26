@@ -1,0 +1,152 @@
+[
+  {
+    "name": "C",
+    "year": 1972,
+    "wikipedia": "C_(programming_language)",
+    "imperative": true,
+    "object_oriented": false,
+    "functional": false,
+    "procedural": true,
+    "generic": true,
+    "reflective": false,
+    "creators": [
+        { "creator1": "Dennis Ritchie" },
+        { "creator2": "Bell Labs" }
+    ]
+  },
+  {
+    "name": "Assembly",
+    "year": 1949,
+    "wikipedia": "Assembly_language",
+    "imperative": true,
+    "object_oriented": false,
+    "functional": false,
+    "procedural": false,
+    "generic": false,
+    "reflective": false,
+    "creators": [
+        { "creator1": "Maurice Vincent Wilkes" },
+        { "creator2": "David John Wheeler" }
+    ]
+  },
+  {
+    "name": "Bash",
+    "year": 1989,
+    "wikipedia": "Bash_(Unix_shell)",
+    "imperative": true,
+    "object_oriented": false,
+    "functional": false,
+    "procedural": true,
+    "generic": false,
+    "reflective": false,
+    "creators": [
+        { "creator1": "Brian Fox" },
+        { "creator2": "Richard Stallman" }
+    ]
+  },
+  {
+    "name": "C++",
+    "year": 1985,
+    "wikipedia": "C%2B%2B",
+    "imperative": true,
+    "object_oriented": true,
+    "functional": true,
+    "procedural": true,
+    "generic": true,
+    "reflective": false,
+    "creators": [
+        { "creator1": "Bjarne Stroustrup" },
+        { "creator2": "Douglas McIlroy" }
+    ]
+  },
+  {
+    "name": "C#",
+    "year": 2000,
+    "wikipedia": "C_Sharp_(programming_language)",
+    "imperative": true,
+    "object_oriented": true,
+    "functional": true,
+    "procedural": true,
+    "generic": true,
+    "reflective": true,
+    "creators": [
+        { "creator1": "Anders Hejlsberg" },
+        { "creator2": "Microsoft" }
+    ]
+  },
+  {
+    "name": "COBOL",
+    "year": 1959,
+    "wikipedia": "COBOL",
+    "imperative": true,
+    "object_oriented": true,
+    "functional": false,
+    "procedural": true,
+    "generic": false,
+    "reflective": false,
+    "creators": [
+        { "creator1": "Howard Bromberg" },
+        { "creator2": "Norman Discount" }
+    ]
+  },
+  {
+    "name": "Java",
+    "year": 1995,
+    "wikipedia": "Java_(programming_language)",
+    "imperative": true,
+    "object_oriented": true,
+    "functional": true,
+    "procedural": true,
+    "generic": true,
+    "reflective": true,
+    "creators": [
+        { "creator1": "James Gosling" },
+        { "creator2": "Oracle Corporation" }
+    ]
+  },
+  {
+    "name": "Fortran",
+    "year": 1957,
+    "wikipedia": "Fortran",
+    "imperative": true,
+    "object_oriented": true,
+    "functional": true,
+    "procedural": true,
+    "generic": true,
+    "reflective": true,
+    "creators": [
+        { "creator1": "Oracle Corporation" },
+        { "creator2": "IBM" }
+    ]
+  },
+  {
+    "name": "BASIC",
+    "year": 1964,
+    "wikipedia": "BASIC",
+    "imperative": true,
+    "object_oriented": false,
+    "functional": false,
+    "procedural": true,
+    "generic": false,
+    "reflective": false,
+    "creators": [
+        { "creator1": "IBM" },
+        { "creator2": "Thomas E. Kurtz" }
+    ]
+  },
+  {
+    "name": "K",
+    "year": 1993,
+    "wikipedia": "K_(programming_language)",
+    "imperative": false,
+    "object_oriented": false,
+    "functional": false,
+    "procedural": false,
+    "generic": false,
+    "reflective": false,
+    "creators": [
+        { "creator1": "Arthur Whitney" },
+        { "creator2": "Kx Systems" }
+    ]
+  }
+]

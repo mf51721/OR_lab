@@ -1,0 +1,11 @@
+name;year;wikipedia;imperative;object_oriented;functional;procedural;generic;reflective;creators
+C;1972;C_(programming_language);true;false;false;true;true;false;("Dennis Ritchie","Bell Labs")
+Assembly;1949;Assembly_language;true;false;false;false;false;false;("Maurice Vincent Wilkes","David John Wheeler")
+Bash;1989;Bash_(Unix_shell);true;false;false;true;false;false;("Brian Fox","Richard Stallman")
+C++;1985;C%2B%2B;true;true;true;true;true;false;("Bjarne Stroustrup","Douglas McIlroy")
+C#;2000;C_Sharp_(programming_language);true;true;true;true;true;true;("Anders Hejlsberg","Microsoft")
+COBOL;1959;COBOL;true;true;false;true;false;false;("Howard Bromberg","Norman Discount")
+Java;1995;Java_(programming_language);true;true;true;true;true;true;("James Gosling","Oracle Corporation")
+Fortran;1957;Fortran;true;true;true;true;true;true;("John Backus","IBM")
+BASIC;1964;BASIC;true;false;false;true;false;false;("John G. Kemeny","Thomas E. Kurtz")
+K;1993;K_(programming_language);false;false;false;false;false;false;("Arthur Whitney","Kx Systems") 
