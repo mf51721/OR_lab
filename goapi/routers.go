@@ -24,16 +24,17 @@ type Routes []Route
 // NewRouter returns a new router.
 func NewRouter() *gin.Engine {
 	router := gin.Default()
+	rg := router.Group("/api")
 	for _, route := range routes {
 		switch route.Method {
 		case http.MethodGet:
-			router.GET(route.Pattern, route.HandlerFunc)
+			rg.GET(route.Pattern, route.HandlerFunc)
 		case http.MethodPost:
-			router.POST(route.Pattern, route.HandlerFunc)
+			rg.POST(route.Pattern, route.HandlerFunc)
 		case http.MethodPut:
-			router.PUT(route.Pattern, route.HandlerFunc)
+			rg.PUT(route.Pattern, route.HandlerFunc)
 		case http.MethodDelete:
-			router.DELETE(route.Pattern, route.HandlerFunc)
+			rg.DELETE(route.Pattern, route.HandlerFunc)
 		}
 	}
 

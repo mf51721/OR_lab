@@ -11,10 +11,10 @@ info:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
 servers:
-  # Added by API Auto Mocking Plugin
   - description: SwaggerHub API Auto Mocking
     url: https://virtserver.swaggerhub.com/AywarZ/lab3/1.0.0
-  - url: 'https://petstore.swagger.io/v2'
+  - description: Server locally hosted for testing
+    url: 'http://localhost:8080/api'
 tags:
   - name: language
     description: Collection of well known programming languages
