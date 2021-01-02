@@ -1,11 +1,11 @@
 package models
 
+import (
+	"gorm.io/gorm"
+)
+
 type Creator struct {
+	gorm.Model
 
-	Id int64 `json:"id,omitempty"`
-
-	Name string `json:"name,omitempty"`
-
-	// list of links
-	Links []Link `json:"links,omitempty"`
+	Name string
 }

@@ -1,8 +1,9 @@
 package models
 
-type Language struct {
+import "gorm.io/gorm"
 
-	Id int64 `json:"id,omitempty"`
+type Language struct{
+	gorm.Model
 
 	Name string `json:"name"`
 
@@ -22,8 +23,5 @@ type Language struct {
 
 	Reflective bool `json:"reflective,omitempty"`
 
-	Creators []Creator `json:"creators,omitempty"`
-
-	// list of links
-	Links []Link `json:"links,omitempty"`
+	Creators []Creator `gorm:"many2many" json:"creators,omitempty"`
 }
