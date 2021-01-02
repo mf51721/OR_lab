@@ -23,8 +23,8 @@ func (h *Handler) AddLanguage(c *gin.Context) {
 	}
 	c.Header("Location", "/api/languages/"+strconv.FormatUint(uint64(req.ID), 10))
 	c.JSON(http.StatusCreated, fmodels.LanguagesWrapper{
-		Status:   "OK",
-		Message:  "Successfully queried all desired language entries",
+		Status:   "Created",
+		Message:  "Successfully added new language entry",
 		Response: nil,
 	})
 }
