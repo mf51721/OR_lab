@@ -11,14 +11,7 @@ package main
 import (
 	"log"
 
-	// WARNING!
-	// Change this to a fully-qualified import path
-	// once you place this file into your project.
-	// For example,
-	//
-	//    sw "github.com/myname/myrepo/go"
-	//
-	sw "./go"
+	sw "github.com/mf51721/OR_lab/go"
 )
 
 func main() {
