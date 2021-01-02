@@ -34,6 +34,12 @@ func Index(c *gin.Context) {
 	c.String(http.StatusOK, "Hello World!")
 }
 
+func (s *ApiServer) ConfigureDefaults() {
+	handler := handlers.NewHandler(s.ls)
+	s.NoMethod(handler.NoMethod)
+	s.NoRoute(handler.NoRoute)
+}
+
 func (s *ApiServer) GetRoutes() Routes {
 	handler := handlers.NewHandler(s.ls)
 

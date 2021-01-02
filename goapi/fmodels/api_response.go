@@ -1,11 +1,11 @@
 package fmodels
 
 type ApiResponse struct {
-	Status string `json:"status,omitempty"`
+	Status string `json:"status"`
 
-	Message string `json:"message,omitempty"`
+	Message string `json:"message"`
 
-	Response *string `json:"response,omitempty"`
+	Response *string `json:"response"`
 }
 
 var (

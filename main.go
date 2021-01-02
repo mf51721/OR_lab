@@ -43,6 +43,7 @@ func main() {
 	// Configure the server
 	app.SetLanguageService(ls)
 	app.SetRoutes(app.GetRoutes())
+	app.ConfigureDefaults()
 
 	log.Fatal(app.Run(":8080"))
 }
