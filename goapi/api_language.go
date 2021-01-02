@@ -26,12 +26,12 @@ func GetLangWiki(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{})
 }
 
-// LanguagesGet - 
+// LanguagesGet -
 func LanguagesGet(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{})
 }
 
-// UpdatePetWithForm - Updates a programming language entry using form data
-func UpdatePetWithForm(c *gin.Context) {
+// UpdateLangWithForm - Updates a programming language entry using form data
+func UpdateLangWithForm(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{})
 }

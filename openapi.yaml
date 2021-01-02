@@ -99,7 +99,7 @@ paths:
       tags:
         - language
       summary: Updates a programming language entry using form data
-      operationId: updatePetWithForm
+      operationId: updateLangWithForm
       parameters:
         - name: languageId
           in: path

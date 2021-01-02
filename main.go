@@ -8,6 +8,7 @@
 package main
 
 import (
+	"github.com/mf51721/OR_lab/goapi/models"
 	"go.uber.org/zap"
 	"gorm.io/driver/postgres"
 
@@ -28,6 +29,11 @@ func main() {
 	if err != nil {
 		log.Error(err)
 	}
+	err = db.AutoMigrate(&models.Creator{}, &models.Language{})
+	if err != nil {
+		log.Error(err)
+	}
+
 	app := sw.NewServer(db, router)
 
 	log.Fatal(app.Run(":8080"))
