@@ -1,7 +1,12 @@
 package fmodels
 
-type Language struct {
+import (
+	"strconv"
 
+	"github.com/mf51721/OR_lab/goapi/models"
+)
+
+type Language struct {
 	Id int64 `json:"id,omitempty"`
 
 	Name string `json:"name"`
@@ -10,20 +15,51 @@ type Language struct {
 
 	Wikipedia string `json:"wikipedia"`
 
-	Imperative bool `json:"imperative,omitempty"`
+	Imperative bool `json:"imperative"`
 
-	ObjectOriented bool `json:"objectOriented,omitempty"`
+	ObjectOriented bool `json:"objectOriented"`
 
-	Functional bool `json:"functional,omitempty"`
+	Functional bool `json:"functional"`
 
-	Procedural bool `json:"procedural,omitempty"`
+	Procedural bool `json:"procedural"`
 
-	Generic bool `json:"generic,omitempty"`
+	Generic bool `json:"generic"`
 
-	Reflective bool `json:"reflective,omitempty"`
+	Reflective bool `json:"reflective"`
 
-	Creators []Creator `json:"creators,omitempty"`
+	Creators []Creator `json:"creators"`
 
 	// list of links
-	Links []Link `json:"links,omitempty"`
+	Links []Link `json:"links"`
+}
+
+func (l Language) FromModel(language models.Language) Language {
+	l.Id = int64(language.ID)
+	l.Name = language.Name
+	l.Year = language.Year
+	l.Wikipedia = language.Wikipedia
+	l.Imperative = language.Imperative
+	l.ObjectOriented = language.ObjectOriented
+	l.Functional = language.Functional
+	l.Procedural = language.Procedural
+	l.Generic = language.Generic
+	l.Reflective = language.Reflective
+	var c []Creator
+	for _, creator := range language.Creators {
+		c = append(c, Creator{}.FromModel(creator))
+	}
+	l.Creators = c
+
+	return l
+}
+
+func (l Language) SetLinks() Language {
+	l.Links = []Link{
+		Link{
+			Href: strconv.FormatInt(l.Id, 10) + "/creators",
+			Rel:  "creators",
+			Type: "GET,PUT",
+		},
+	}
+	return l
 }

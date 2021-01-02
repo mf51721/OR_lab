@@ -8,13 +8,14 @@
 package main
 
 import (
-	"github.com/mf51721/OR_lab/goapi/models"
 	"go.uber.org/zap"
 	"gorm.io/driver/postgres"
-
 	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
 
 	sw "github.com/mf51721/OR_lab/goapi"
+	"github.com/mf51721/OR_lab/goapi/models"
+	"github.com/mf51721/OR_lab/goapi/services"
 )
 
 func main() {
@@ -25,7 +26,8 @@ func main() {
 	router := sw.NewRouter()
 
 	dsn := "host=localhost user=marko password=marko dbname=languages port=5301 sslmode=disable"
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{
+		Logger: logger.Default.LogMode(logger.Info)})
 	if err != nil {
 		log.Error(err)
 	}
@@ -35,6 +37,12 @@ func main() {
 	}
 
 	app := sw.NewServer(db, router)
+
+	ls := services.NewLanguageService(db)
+
+	// Configure the server
+	app.SetLanguageService(ls)
+	app.SetRoutes(app.GetRoutes())
 
 	log.Fatal(app.Run(":8080"))
 }

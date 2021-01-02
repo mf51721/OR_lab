@@ -7,16 +7,16 @@ import (
 )
 
 // GetCreators - Returns all programming language creators
-func GetCreators(c *gin.Context) {
+func (h *Handler) GetCreators(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{})
 }
 
-// GetLangCreators -
-func GetLangCreators(c *gin.Context) {
+// GetLangCreators - Returns creators of a desired programming language
+func (h *Handler) GetLangCreators(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{})
 }
 
 // SetLangCreators - change list of language creators
-func SetLangCreators(c *gin.Context) {
+func (h *Handler) SetLangCreators(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{})
 }

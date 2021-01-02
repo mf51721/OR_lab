@@ -2,7 +2,7 @@ package models
 
 import "gorm.io/gorm"
 
-type Language struct{
+type Language struct {
 	gorm.Model
 
 	Name string `json:"name"`
@@ -23,5 +23,5 @@ type Language struct{
 
 	Reflective bool `json:"reflective,omitempty"`
 
-	Creators []Creator `gorm:"many2many" json:"creators,omitempty"`
+	Creators []Creator `gorm:"many2many:language_creators" json:"creators,omitempty"`
 }
