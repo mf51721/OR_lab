@@ -1,11 +1,10 @@
 package fmodels
 
 type CreatorsWrapper struct {
+	Status string `json:"status"`
 
-	Status string `json:"status,omitempty"`
-
-	Message string `json:"message,omitempty"`
+	Message string `json:"message"`
 
 	// response with all of the languages in the system
-	Response []Creator `json:"response,omitempty"`
+	Response []Creator `json:"response"`
 }

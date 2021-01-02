@@ -1,10 +1,9 @@
 package fmodels
 
 type Link struct {
+	Href string `json:"href"`
 
-	Href string `json:"href,omitempty"`
+	Rel string `json:"rel"`
 
-	Rel string `json:"rel,omitempty"`
-
-	Type string `json:"type,omitempty"`
+	Type string `json:"type"`
 }
