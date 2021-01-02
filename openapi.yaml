@@ -35,6 +35,10 @@ paths:
       responses:
         '405':
           description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
         '201':
           description: created new programming language entry
           headers:
@@ -42,8 +46,16 @@ paths:
               schema:
                 type: string
               description: Location where one can access the created entry
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
         '400':
           description: Invalid status value
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
     get:
       tags:
         - language
@@ -53,10 +65,7 @@ paths:
           content:
             application/json:
               schema:
-                description: response with all of the languages in the system
-                type: array
-                items:
-                  $ref: '#/components/requestBodies/Language'
+                $ref: '#/components/schemas/LanguagesWrapper'
   '/languages/{languageId}':
     get:
       tags:
@@ -78,10 +87,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Language'
+                $ref: '#/components/schemas/LanguageWrapper'
             application/xml:
               schema:
-                $ref: '#/components/schemas/Language'
+                $ref: '#/components/schemas/LanguageWrapper'
         '400':
           description: Invalid ID supplied
         '404':
@@ -102,8 +111,16 @@ paths:
       responses:
         '200':
           description: langage entry succesfuly updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
         '405':
           description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
       requestBody:
         content:
           application/json:
@@ -130,10 +147,22 @@ paths:
       responses:
         '400':
           description: Invalid ID supplied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
         '404':
           description: Pet not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
         '200':
           description: Succesful deletion
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
   '/languages/{languageId}/creators':
     put:
       tags:
@@ -186,9 +215,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Creator'
+                $ref: '#/components/schemas/CreatorsWrapper'
   '/languages/{languageId}/wikipedia':
     get:
       tags:
@@ -211,14 +238,22 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/WikiResponse'
+                $ref: '#/components/schemas/WikiResponseWrapper'
             application/xml:
               schema:
-                $ref: '#/components/schemas/WikiResponse'
+                $ref: '#/components/schemas/WikiResponseWrapper'
         '400':
           description: Invalid ID supplied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
         '404':
           description: wikipedia handle for language not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
   '/creators':
     get:
       tags:
@@ -231,21 +266,65 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Creator'
+                $ref: '#/components/schemas/CreatorsWrapper'
             application/xml:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Creator'
+                $ref: '#/components/schemas/CreatorsWrapper'
         '404':
           description: no creators not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
 externalDocs:
   description: Find out more at github page
   url: 'https://github.com/mf51721/OR_lab'
 components:
   schemas:
+    LanguageWrapper:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "OK"
+        message:
+          type: string
+          example: "Succesfully found desired language"
+        response:
+          $ref: '#/components/schemas/Language'
+    LanguagesWrapper:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "OK"
+        message:
+          type: string
+          example: "Succesfully found desired languages"
+        response:
+          $ref: '#/components/schemas/LanguageArray'
+    CreatorWrapper:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "OK"
+        message:
+          type: string
+          example: "Succesfully found desired creator"
+        response:
+          $ref: '#/components/schemas/Creator'
+    CreatorsWrapper:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "OK"
+        message:
+          type: string
+          example: "Succesfully found desired creators"
+        response:
+          $ref: '#/components/schemas/CreatorArray'
     WikiResponse:
       type: object
       properties:
@@ -253,11 +332,20 @@ components:
           type: string
           example: 'C_(programming_language)'
         links:
-          type: array
-          items:
-            $ref: '#/components/schemas/Link'
+          $ref: '#/components/schemas/LinkArray'
       xml:
         name: wiki
+    WikiResponseWrapper:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "OK"
+        message:
+          type: string
+          example: "Succesfully found desired wiki handle"
+        response:
+          $ref: '#/components/schemas/WikiResponse'
     Creator:
       type: object
       properties:
@@ -267,6 +355,8 @@ components:
         name:
           type: string
           example: "Dennis Ritchie"
+        links:
+          $ref: '#/components/schemas/LinkArray'
       xml:
         name: Tag
     Language:
@@ -297,14 +387,33 @@ components:
           type: boolean
         generic:
           type: boolean
-        reflectiv:
+        reflective:
           type: boolean
         creators:
           type: array
           items:
             $ref: '#/components/schemas/Creator'
+        links:
+          $ref: '#/components/schemas/LinkArray'
+    LanguageArray:
+      description: response with all of the languages in the system
+      type: array
+      items:
+       $ref: '#/components/schemas/Language'
+    CreatorArray:
+      description: response with all of the languages in the system
+      type: array
+      items:
+       $ref: '#/components/schemas/Creator'
+    LinkArray:
+      description: list of links
+      readOnly: true
+      type: array
+      items:
+       $ref: '#/components/schemas/Link'
     Link:
       type: object
+      readOnly: true
       properties:
         href:
           type: string
@@ -318,13 +427,16 @@ components:
     ApiResponse:
       type: object
       properties:
-        code:
-          type: integer
-          format: int32
-        type:
+        status:
           type: string
+          example: "OK"
         message:
           type: string
+          example: "Action succesfully carried out"
+        response:
+          type: string
+          nullable: true
+          example: null
   requestBodies:
     Language:
       content:
@@ -341,3 +453,4 @@ components:
       type: apiKey
       name: api_key
       in: header
+
