@@ -11,7 +11,7 @@ package main
 import (
 	"log"
 
-	sw "github.com/mf51721/OR_lab/go"
+	sw "github.com/mf51721/OR_lab/goapi"
 )
 
 func main() {

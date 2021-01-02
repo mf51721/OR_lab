@@ -1,4 +1,4 @@
-package openapi
+package goapi
 
 import (
 	"net/http"
