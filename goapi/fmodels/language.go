@@ -55,8 +55,13 @@ func (l Language) FromModel(language models.Language) Language {
 
 func (l Language) SetLinks() Language {
 	l.Links = []Link{
-		Link{
-			Href: strconv.FormatInt(l.Id, 10) + "/creators",
+		{
+			Href: "/api/languages/" + strconv.FormatInt(l.Id, 10),
+			Rel:  "self",
+			Type: "GET,PUT",
+		},
+		{
+			Href: "/api/languages/" + strconv.FormatInt(l.Id, 10) + "/creators",
 			Rel:  "creators",
 			Type: "GET,PUT",
 		},
