@@ -3,6 +3,8 @@ package goapi
 import (
 	"net/http"
 
+	"github.com/mf51721/OR_lab/goapi/handlers"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -58,62 +60,62 @@ var routes = Routes{
 		"GetCreators",
 		http.MethodGet,
 		"/creators",
-		GetCreators,
+		handlers.GetCreators,
 	},
 
 	{
 		"GetLangCreators",
 		http.MethodGet,
 		"/languages/:languageId/creators",
-		GetLangCreators,
+		handlers.GetLangCreators,
 	},
 
 	{
 		"SetLangCreators",
 		http.MethodPut,
 		"/languages/:languageId/creators",
-		SetLangCreators,
+		handlers.SetLangCreators,
 	},
 
 	{
 		"AddLanguage",
 		http.MethodPost,
 		"/languages",
-		AddLanguage,
+		handlers.AddLanguage,
 	},
 
 	{
 		"DeleteLang",
 		http.MethodDelete,
 		"/languages/:languageId",
-		DeleteLang,
+		handlers.DeleteLang,
 	},
 
 	{
 		"GetLangById",
 		http.MethodGet,
 		"/languages/:languageId",
-		GetLangById,
+		handlers.GetLangById,
 	},
 
 	{
 		"GetLangWiki",
 		http.MethodGet,
 		"/languages/:languageId/wikipedia",
-		GetLangWiki,
+		handlers.GetLangWiki,
 	},
 
 	{
 		"LanguagesGet",
 		http.MethodGet,
 		"/languages",
-		LanguagesGet,
+		handlers.LanguagesGet,
 	},
 
 	{
 		"UpdateLang",
 		http.MethodPut,
 		"/languages/:languageId",
-		UpdateLangWithForm,
+		handlers.UpdateLangWithForm,
 	},
 }

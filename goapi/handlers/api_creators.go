@@ -1,4 +1,4 @@
-package goapi
+package handlers
 
 import (
 	"net/http"
@@ -11,7 +11,7 @@ func GetCreators(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{})
 }
 
-// GetLangCreators - 
+// GetLangCreators -
 func GetLangCreators(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{})
 }
