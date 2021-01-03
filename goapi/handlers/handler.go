@@ -10,11 +10,15 @@ import (
 
 type Handler struct {
 	ls services.LanguageService
+	cs services.CreatorService
 }
 
 // TODO: Handler should be an interface (service that is able to serve set methods, e.g. handleGetLanguages etc.).
-func NewHandler(ls services.LanguageService) Handler {
-	return Handler{ls: ls}
+func NewHandler(ls services.LanguageService, cs services.CreatorService) Handler {
+	return Handler{
+		ls: ls,
+		cs: cs,
+	}
 }
 
 func (h *Handler) NoMethod(c *gin.Context) {

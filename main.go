@@ -39,9 +39,11 @@ func main() {
 	app := sw.NewServer(db, router)
 
 	ls := services.NewLanguageService(db)
+	cs := services.NewCreatorService(db)
 
 	// Configure the server
 	app.SetLanguageService(ls)
+	app.SetCreatorService(cs)
 	app.SetRoutes(app.GetRoutes())
 	app.ConfigureDefaults()
 

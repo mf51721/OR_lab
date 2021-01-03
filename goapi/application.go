@@ -11,7 +11,7 @@ type ApiServer struct {
 	*gin.Engine
 	db *gorm.DB
 	ls services.LanguageService
-	// cs services.CreatorService
+	cs services.CreatorService
 }
 
 func NewServer(db *gorm.DB, router *gin.Engine) ApiServer {
@@ -26,6 +26,6 @@ func (s *ApiServer) SetLanguageService(ls services.LanguageService) {
 	s.ls = ls
 }
 
-//func (s *ApiServer) SetCreatorService(cs services.CreatorService) {
-//	s.cs = cs
-//}
+func (s *ApiServer) SetCreatorService(cs services.CreatorService) {
+	s.cs = cs
+}
