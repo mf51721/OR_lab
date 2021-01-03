@@ -10,8 +10,8 @@
     "generic": true,
     "reflective": false,
     "creators": [
-        { "creator1": "Dennis Ritchie" },
-        { "creator2": "Bell Labs" }
+        { "name": "Dennis Ritchie" },
+        { "name": "Bell Labs" }
     ]
   },
   {
@@ -25,8 +25,8 @@
     "generic": false,
     "reflective": false,
     "creators": [
-        { "creator1": "Maurice Vincent Wilkes" },
-        { "creator2": "David John Wheeler" }
+        { "name": "Maurice Vincent Wilkes" },
+        { "name": "David John Wheeler" }
     ]
   },
   {
@@ -40,8 +40,8 @@
     "generic": false,
     "reflective": false,
     "creators": [
-        { "creator1": "Brian Fox" },
-        { "creator2": "Richard Stallman" }
+        { "name": "Brian Fox" },
+        { "name": "Richard Stallman" }
     ]
   },
   {
@@ -55,8 +55,8 @@
     "generic": true,
     "reflective": false,
     "creators": [
-        { "creator1": "Bjarne Stroustrup" },
-        { "creator2": "Douglas McIlroy" }
+        { "name": "Bjarne Stroustrup" },
+        { "name": "Douglas McIlroy" }
     ]
   },
   {
@@ -70,8 +70,8 @@
     "generic": true,
     "reflective": true,
     "creators": [
-        { "creator1": "Anders Hejlsberg" },
-        { "creator2": "Microsoft" }
+        { "name": "Anders Hejlsberg" },
+        { "name": "Microsoft" }
     ]
   },
   {
@@ -85,8 +85,8 @@
     "generic": false,
     "reflective": false,
     "creators": [
-        { "creator1": "Howard Bromberg" },
-        { "creator2": "Norman Discount" }
+        { "name": "Howard Bromberg" },
+        { "name": "Norman Discount" }
     ]
   },
   {
@@ -100,8 +100,8 @@
     "generic": true,
     "reflective": true,
     "creators": [
-        { "creator1": "James Gosling" },
-        { "creator2": "Oracle Corporation" }
+        { "name": "James Gosling" },
+        { "name": "Oracle Corporation" }
     ]
   },
   {
@@ -115,8 +115,8 @@
     "generic": true,
     "reflective": true,
     "creators": [
-        { "creator1": "Oracle Corporation" },
-        { "creator2": "IBM" }
+        { "name": "Oracle Corporation" },
+        { "name": "IBM" }
     ]
   },
   {
@@ -130,8 +130,8 @@
     "generic": false,
     "reflective": false,
     "creators": [
-        { "creator1": "IBM" },
-        { "creator2": "Thomas E. Kurtz" }
+        { "name": "IBM" },
+        { "name": "Thomas E. Kurtz" }
     ]
   },
   {
@@ -145,8 +145,8 @@
     "generic": false,
     "reflective": false,
     "creators": [
-        { "creator1": "Arthur Whitney" },
-        { "creator2": "Kx Systems" }
+        { "name": "Arthur Whitney" },
+        { "name": "Kx Systems" }
     ]
   }
 ]
