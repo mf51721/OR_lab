@@ -144,5 +144,36 @@ func (h *Handler) GetLanguages(c *gin.Context) {
 
 // UpdateLangWithForm - Updates a programming language entry using form data
 func (h *Handler) UpdateLangWithForm(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{})
+	// Get request body
+	var req gin.H
+	err := c.Bind(&req)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, fmodels.RespBadRequest)
+		return
+	}
+
+	// Get language ID from URL param
+	rawLangId, ok := c.Params.Get("languageId")
+	if !ok {
+		c.JSON(http.StatusBadRequest, fmodels.RespBadRequest)
+		return
+	}
+	langId, err := strconv.Atoi(rawLangId)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, fmodels.RespBadRequest)
+		return
+	}
+	// TODO: find more elegant solution to disable changing language id
+	delete(req, "id")
+	delete(req, "ID")
+
+	err = h.ls.Update(uint(langId), req)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, fmodels.BuildErrorResponse("Unsuccessful update", err))
+		return
+	}
+	c.JSON(http.StatusOK, fmodels.ApiResponse{
+		Status:  "Entry updated",
+		Message: fmt.Sprintf("Languge with ID %v was successfully updated", langId),
+	})
 }

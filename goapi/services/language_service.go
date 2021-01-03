@@ -14,7 +14,7 @@ type LanguageService interface {
 	Delete(id uint) error
 	Get(id uint) (*models.Language, error)
 	GetAll(params string) (*[]models.Language, error)
-	Update(language models.Language) error
+	Update(id uint, payload map[string]interface{}) error
 }
 
 type LanguageServiceImpl struct {
@@ -65,6 +65,16 @@ func (s *LanguageServiceImpl) GetAll(params string) (*[]models.Language, error) 
 }
 
 // UpdateLangWithForm - Updates a programming language entry using form data
-func (s *LanguageServiceImpl) Update(language models.Language) error {
+func (s *LanguageServiceImpl) Update(id uint, payload map[string]interface{}) error {
+	lang := models.Language{
+		Model: gorm.Model{ID: id},
+	}
+	result := s.db.Model(&lang).Updates(payload)
+	if result.Error != nil {
+		return result.Error
+	}
+	if result.RowsAffected <= 0 {
+		return fmt.Errorf("no language entries were updated")
+	}
 	return nil
 }
