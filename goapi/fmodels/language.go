@@ -61,6 +61,11 @@ func (l Language) SetLinks() Language {
 			Type: "GET,PUT",
 		},
 		{
+			Href: "/api/languages/" + strconv.FormatInt(l.Id, 10) + "/wikipedia",
+			Rel:  "wikiPageHandle",
+			Type: "GET",
+		},
+		{
 			Href: "/api/languages/" + strconv.FormatInt(l.Id, 10) + "/creators",
 			Rel:  "creators",
 			Type: "GET,PUT",

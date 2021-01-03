@@ -1,6 +1,8 @@
 package services
 
 import (
+	"fmt"
+
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 
@@ -9,7 +11,7 @@ import (
 
 type LanguageService interface {
 	Add(language *models.Language) error
-	Delete(language models.Language) error
+	Delete(id uint) error
 	Get(id uint) (*models.Language, error)
 	GetAll(params string) (*[]models.Language, error)
 	Update(language models.Language) error
@@ -30,7 +32,15 @@ func (s *LanguageServiceImpl) Add(language *models.Language) error {
 }
 
 // DeleteLang - Deletes a language entry
-func (s *LanguageServiceImpl) Delete(language models.Language) error {
+func (s *LanguageServiceImpl) Delete(id uint) error {
+	// Replace with s.db.Unscoped().Delete to hard delete an entry instead of a soft delete
+	result := s.db.Unscoped().Delete(&models.Language{}, id)
+	if result.Error != nil {
+		return result.Error
+	}
+	if result.RowsAffected <= 0 {
+		return fmt.Errorf("no language entries were deleted")
+	}
 	return nil
 }
 

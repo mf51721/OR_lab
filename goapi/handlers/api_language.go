@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"net/http"
 	"strconv"
 
@@ -32,7 +33,25 @@ func (h *Handler) AddLanguage(c *gin.Context) {
 
 // DeleteLang - Deletes a language entry
 func (h *Handler) DeleteLang(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{})
+	rawLangId, ok := c.Params.Get("languageId")
+	if !ok {
+		c.JSON(http.StatusBadRequest, fmodels.RespBadRequest)
+		return
+	}
+	langId, err := strconv.Atoi(rawLangId)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, fmodels.RespBadRequest)
+		return
+	}
+	err = h.ls.Delete(uint(langId))
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, fmodels.BuildErrorResponse("Unsuccessful deletion", err))
+		return
+	}
+	c.JSON(http.StatusOK, fmodels.ApiResponse{
+		Status:  "Entry deleted",
+		Message: fmt.Sprintf("Languge with ID %v was successfully deleted", langId),
+	})
 }
 
 // GetLangById - Find language by Id
@@ -70,7 +89,35 @@ func (h *Handler) GetLangById(c *gin.Context) {
 
 // GetLangWiki - Find wikipedia handle string
 func (h *Handler) GetLangWiki(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{})
+	rawLangId, ok := c.Params.Get("languageId")
+	if !ok {
+		c.JSON(http.StatusBadRequest, fmodels.RespBadRequest)
+		return
+	}
+	langId, err := strconv.Atoi(rawLangId)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, fmodels.RespBadRequest)
+		return
+	}
+	modLang, err := h.ls.Get(uint(langId))
+	if err == gorm.ErrRecordNotFound {
+		c.JSON(http.StatusNotFound, fmodels.ApiResponse{
+			Status:   "Not Found",
+			Message:  "Requested language wiki handle could not be found",
+			Response: nil,
+		})
+		return
+	}
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, fmodels.BuildErrorResponse("Error returning language wiki handle", err))
+		return
+	}
+
+	c.JSON(http.StatusOK, fmodels.WikiResponseWrapper{
+		Status:   "OK",
+		Message:  "Found desired language wikipedia handle",
+		Response: fmodels.WikiResponse{}.FromModel(*modLang).SetLinks(),
+	})
 }
 
 // GetLanguages -
