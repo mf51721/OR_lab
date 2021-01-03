@@ -46,6 +46,7 @@ func (l Language) FromModel(language models.Language) Language {
 	l.Reflective = language.Reflective
 	var c []Creator
 	for _, creator := range language.Creators {
+		// This does not set links for creator object, which is intended
 		c = append(c, Creator{}.FromModel(creator))
 	}
 	l.Creators = c

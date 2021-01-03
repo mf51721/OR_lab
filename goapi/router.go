@@ -57,7 +57,12 @@ func (s *ApiServer) GetRoutes() Routes {
 			"/creators",
 			handler.GetCreators,
 		},
-
+		{
+			"GetCreator",
+			http.MethodGet,
+			"/creators/:creatorId",
+			handler.GetCreatorById,
+		},
 		{
 			"GetLangCreators",
 			http.MethodGet,

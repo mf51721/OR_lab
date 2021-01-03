@@ -45,12 +45,12 @@ func (s *CreatorServiceImpl) Delete(id uint) error {
 
 // Get - Find creator by Id
 func (s *CreatorServiceImpl) Get(id uint) (*models.Creator, error) {
-	var l models.Creator
-	err := s.db.Preload(clause.Associations).First(&l, id).Error
+	var c models.Creator
+	err := s.db.Preload(clause.Associations).First(&c, id).Error
 	if err != nil {
 		return nil, err
 	}
-	return &l, nil
+	return &c, nil
 }
 
 // GetAll -
