@@ -15,6 +15,7 @@ type LanguageService interface {
 	Get(id uint) (*models.Language, error)
 	GetAll(params string) (*[]models.Language, error)
 	Update(id uint, payload map[string]interface{}) error
+	SetCreators(langId uint, creators []models.Creator) error
 }
 
 type LanguageServiceImpl struct {
@@ -62,6 +63,18 @@ func (s *LanguageServiceImpl) GetAll(params string) (*[]models.Language, error) 
 		return nil, err
 	}
 	return &res, nil
+}
+
+func (s *LanguageServiceImpl) SetCreators(langId uint, creators []models.Creator) error {
+	lang := models.Language{
+		Model: gorm.Model{ID: langId},
+	}
+	for _, c := range creators {
+		if c.Name == "" {
+			return fmt.Errorf("creator's name must be set")
+		}
+	}
+	return s.db.Model(&lang).Association("Creators").Replace(creators)
 }
 
 // Update - Updates a programming language entry using form data

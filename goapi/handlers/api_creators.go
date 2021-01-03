@@ -4,6 +4,8 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/mf51721/OR_lab/goapi/models"
+
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 
@@ -117,5 +119,66 @@ func (h *Handler) SetLangCreators(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, fmodels.RespBadRequest)
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{})
+	var modCreators []models.Creator
+	err = c.Bind(&modCreators)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, fmodels.RespBadRequest)
+	}
+	err = h.ls.SetCreators(uint(langId), modCreators)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, fmodels.BuildErrorResponse("unsuccessful POST", err))
+		return
+	}
+	c.Header("Location", "/api/languages/"+strconv.Itoa(langId)+"/creators")
+	c.JSON(http.StatusCreated, fmodels.LanguagesWrapper{
+		Status:   "Created",
+		Message:  "Successfully set creators of desired language",
+		Response: nil,
+	})
+}
+
+// AddLangCreators - append to list of language creators
+// This is currently not used, maybe it would found its use-case on POST /api/languages/:id/creators
+func (h *Handler) AddLangCreators(c *gin.Context) {
+	rawLangId, ok := c.Params.Get("languageId")
+	if !ok {
+		c.JSON(http.StatusBadRequest, fmodels.RespBadRequest)
+		return
+	}
+	langId, err := strconv.Atoi(rawLangId)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, fmodels.RespBadRequest)
+		return
+	}
+	modLang, err := h.ls.Get(uint(langId))
+	if err == gorm.ErrRecordNotFound {
+		c.JSON(http.StatusNotFound, fmodels.ApiResponse{
+			Status:   "Not Found",
+			Message:  "language with id " + strconv.Itoa(langId) + " could not be found",
+			Response: nil,
+		})
+		return
+	}
+	var modCreators []models.Creator
+	err = c.Bind(&modCreators)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, fmodels.RespBadRequest)
+	}
+	for _, creator := range modCreators {
+		creator.Languages = append(creator.Languages, *modLang)
+		err = h.cs.Add(&creator)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, fmodels.BuildErrorResponse("unsuccessful POST", err))
+			return
+		}
+	}
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, fmodels.BuildErrorResponse("unsuccessful POST", err))
+	}
+	c.Header("Location", "/api/languages/"+strconv.Itoa(langId)+"/creators")
+	c.JSON(http.StatusCreated, fmodels.LanguagesWrapper{
+		Status:   "Created",
+		Message:  "Successfully set creators of desired language",
+		Response: nil,
+	})
 }
