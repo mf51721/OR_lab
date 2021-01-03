@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  db-dev:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: marko
+      POSTGRES_PASSWORD: marko
+      POSTGRES_DB: languages
+      PGDATA: /db
+    volumes:
+      - ./.db/data:/db
+      - ./.db/logs:/pg_logs
+      - ./.db/init:/docker-entrypoint-initdb.d
+    ports:
+      - 127.0.0.1:5301:5432
+    restart: always
