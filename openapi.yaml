@@ -276,6 +276,36 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
+  '/creators/{creatorId}':
+    get:
+      tags:
+        - creators
+      summary: Returns programming language creator by Id specified in URL
+      operationId: getCreator
+      parameters:
+        - name: creatorId
+          in: path
+          description: ID of desired language creator
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatorWrapper'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/CreatorWrapper'
+        '404':
+          description: no creators not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
 externalDocs:
   description: Find out more at github page
   url: 'https://github.com/mf51721/OR_lab'
@@ -289,7 +319,7 @@ components:
           example: "OK"
         message:
           type: string
-          example: "Succesfully found desired language"
+          example: "Successfully found desired language"
         response:
           $ref: '#/components/schemas/Language'
     LanguagesWrapper:
@@ -300,7 +330,7 @@ components:
           example: "OK"
         message:
           type: string
-          example: "Succesfully found desired languages"
+          example: "Successfully found desired languages"
         response:
           $ref: '#/components/schemas/LanguageArray'
     CreatorWrapper:
@@ -311,7 +341,7 @@ components:
           example: "OK"
         message:
           type: string
-          example: "Succesfully found desired creator"
+          example: "Successfully found desired creator"
         response:
           $ref: '#/components/schemas/Creator'
     CreatorsWrapper:
@@ -343,7 +373,7 @@ components:
           example: "OK"
         message:
           type: string
-          example: "Succesfully found desired wiki handle"
+          example: "Successfully found desired wiki handle"
         response:
           $ref: '#/components/schemas/WikiResponse'
     Creator:
@@ -432,7 +462,7 @@ components:
           example: "OK"
         message:
           type: string
-          example: "Action succesfully carried out"
+          example: "Action successfully carried out"
         response:
           type: string
           nullable: true
