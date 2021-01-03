@@ -5,6 +5,7 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
+	"gorm.io/gorm"
 
 	"github.com/mf51721/OR_lab/goapi/fmodels"
 	"github.com/mf51721/OR_lab/goapi/models"
@@ -36,7 +37,35 @@ func (h *Handler) DeleteLang(c *gin.Context) {
 
 // GetLangById - Find language by Id
 func (h *Handler) GetLangById(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{})
+	rawLangId, ok := c.Params.Get("languageId")
+	if !ok {
+		c.JSON(http.StatusBadRequest, fmodels.RespBadRequest)
+		return
+	}
+	langId, err := strconv.Atoi(rawLangId)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, fmodels.RespBadRequest)
+		return
+	}
+	modLang, err := h.ls.Get(uint(langId))
+	if err == gorm.ErrRecordNotFound {
+		c.JSON(http.StatusNotFound, fmodels.ApiResponse{
+			Status:   "Not Found",
+			Message:  "Requested language could not be found",
+			Response: nil,
+		})
+		return
+	}
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, fmodels.BuildErrorResponse("Error returning language", err))
+		return
+	}
+
+	c.JSON(http.StatusOK, fmodels.LanguageWrapper{
+		Status:   "OK",
+		Message:  "Found desired language",
+		Response: fmodels.Language{}.FromModel(*modLang).SetLinks(),
+	})
 }
 
 // GetLangWiki - Find wikipedia handle string

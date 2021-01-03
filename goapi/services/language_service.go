@@ -36,13 +36,21 @@ func (s *LanguageServiceImpl) Delete(language models.Language) error {
 
 // GetLang - Find language by Id
 func (s *LanguageServiceImpl) Get(id uint) (*models.Language, error) {
-	return nil, nil
+	var l models.Language
+	err := s.db.Preload(clause.Associations).First(&l, id).Error
+	if err != nil {
+		return nil, err
+	}
+	return &l, nil
 }
 
 // LanguagesGet -
 func (s *LanguageServiceImpl) GetAll(params string) (*[]models.Language, error) {
 	var res []models.Language
-	s.db.Preload(clause.Associations).Find(&res)
+	err := s.db.Preload(clause.Associations).Find(&res).Error
+	if err != nil {
+		return nil, err
+	}
 	return &res, nil
 }
 
