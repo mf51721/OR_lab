@@ -13,6 +13,7 @@ type CreatorService interface {
 	Add(creator *models.Creator) error
 	Delete(id uint) error
 	Get(id uint) (*models.Creator, error)
+	GetByLanguage(langId uint) (*[]models.Creator, error)
 	GetAll(params string) (*[]models.Creator, error)
 	Update(id uint, payload map[string]interface{}) error
 }
@@ -51,6 +52,26 @@ func (s *CreatorServiceImpl) Get(id uint) (*models.Creator, error) {
 		return nil, err
 	}
 	return &c, nil
+}
+
+func (s *CreatorServiceImpl) GetByLanguage(langId uint) (*[]models.Creator, error) {
+	var res []models.Creator
+	lang := models.Language{
+		Model: gorm.Model{ID: langId},
+	}
+
+	if err := s.db.First(&lang).Error; err != nil {
+		return nil, err
+	}
+	// Find all creators of a given language (by language id)
+	err := s.db.Model(&models.Language{Model: gorm.Model{ID: langId}}).
+		Association("Creators").
+		Find(&res)
+	if err != nil {
+		return nil, err
+	}
+	return &res, nil
+
 }
 
 // GetAll -

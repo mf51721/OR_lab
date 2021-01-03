@@ -67,10 +67,55 @@ func (h *Handler) GetCreatorById(c *gin.Context) {
 
 // GetLangCreators - Returns creators of a desired programming language
 func (h *Handler) GetLangCreators(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{})
+	rawLangId, ok := c.Params.Get("languageId")
+	if !ok {
+		c.JSON(http.StatusBadRequest, fmodels.RespBadRequest)
+		return
+	}
+	langId, err := strconv.Atoi(rawLangId)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, fmodels.RespBadRequest)
+		return
+	}
+	modCreators, err := h.cs.GetByLanguage(uint(langId))
+	if err == gorm.ErrRecordNotFound {
+		c.JSON(http.StatusNotFound, fmodels.ApiResponse{
+			Status:   "Not Found",
+			Message:  "Requested language creators could not be found",
+			Response: nil,
+		})
+		return
+	}
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, fmodels.BuildErrorResponse("Error occurred", err))
+		return
+	}
+
+	var fCreators []fmodels.Creator
+	if modCreators != nil {
+		for _, creator := range *modCreators {
+			fCreators = append(fCreators, fmodels.Creator{}.FromModel(creator).SetLinks())
+		}
+	}
+
+	c.JSON(http.StatusOK, fmodels.CreatorsWrapper{
+		Status:   "OK",
+		Message:  "Successfully queried all desired language creators",
+		Response: fCreators,
+	})
 }
 
 // SetLangCreators - change list of language creators
 func (h *Handler) SetLangCreators(c *gin.Context) {
+	rawLangId, ok := c.Params.Get("languageId")
+	if !ok {
+		c.JSON(http.StatusBadRequest, fmodels.RespBadRequest)
+		return
+	}
+	langId, err := strconv.Atoi(rawLangId)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, fmodels.RespBadRequest)
+		return
+	}
 	c.JSON(http.StatusOK, gin.H{})
 }
