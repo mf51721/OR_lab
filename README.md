@@ -1,7 +1,19 @@
-# OR_lab1
-Otvoreno Računarstvo - 1. laboratorijska vježba
+# Otvoreno Računarstvo - 3. laboratorijska vježba
 
-Ovaj skup podataka opisuje razne programske jezike te njihove detalje i funkcionalnosti.
+API koji izlaže bazu podataka programskih jezika.
+
+### Pokretanje
+
+Za pokrenuti API:
+```
+go run ./main.go
+```
+
+Za podignuti DB koristeći docker-compose:
+```
+cd db
+docker-compose up
+```
 
 # Metapodaci
 Naslov: Baza Podataka Programskih Jezika i Njihovih Svojstava
