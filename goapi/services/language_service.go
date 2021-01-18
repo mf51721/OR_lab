@@ -14,7 +14,6 @@ import (
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 
-	"github.com/gin-gonic/gin"
 	"github.com/mf51721/OR_lab/goapi/models"
 )
 
@@ -25,7 +24,7 @@ type LanguageService interface {
 	GetAll(params string) (*[]models.Language, error)
 	Update(id uint, payload map[string]interface{}) error
 	SetCreators(langId uint, creators []models.Creator) error
-	GetPic(id uint) (*models.Language, error)
+	GetPic(id uint)
 }
 
 type LanguageServiceImpl struct {
@@ -65,7 +64,7 @@ func (s *LanguageServiceImpl) Get(id uint) (*models.Language, error) {
 }
 
 // GetPic - Get pic
-func (s *LanguageServiceImpl) GetPic(id uint) (*models.Language, error) {
+func (s *LanguageServiceImpl) GetPic(id uint) {
 	var l models.Language
 	err := s.db.Preload(clause.Associations).First(&l, id).Error
 
@@ -96,7 +95,7 @@ func (s *LanguageServiceImpl) GetPic(id uint) (*models.Language, error) {
 		result := map[string]interface{}{}
 		json.Unmarshal([]byte(bodyStr), &result)
 		if result["originalimage"] == nil {
-			return nil, nil
+			return
 		}
 		originalimage := result["originalimage"].(map[string]interface{})
 		var imgurl string
@@ -127,10 +126,8 @@ func (s *LanguageServiceImpl) GetPic(id uint) (*models.Language, error) {
 
 	}
 	//log.Println(fileinfo)
-	r := gin.Default()
-	r.StaticFile(l.Slika, filename)
 
-	return nil, nil
+	return
 }
 
 func find(obj interface{}, key string) (interface{}, bool) {
