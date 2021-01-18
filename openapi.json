@@ -1,765 +1,806 @@
 {
-  "openapi": "3.0.3",
-  "info": {
-    "title": "Programski Jezici",
-    "description": "Ovaj API pruža pristup skupu podataka opisuje razne\nprogramske jezike te njihove detalje i funkcionalnosti.\n",
-    "contact": {
-      "email": "marko.filipovic@fer.hr"
-    },
-    "license": {
-      "name": "Apache 2.0",
-      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
-    },
-    "version": "1.0.0"
-  },
-  "externalDocs": {
-    "description": "Find out more at github page",
-    "url": "https://github.com/mf51721/OR_lab"
-  },
-  "servers": [
-    {
-      "url": "https://virtserver.swaggerhub.com/AywarZ/lab3/1.0.0",
-      "description": "SwaggerHub API Auto Mocking"
-    },
-    {
-      "url": "http://localhost:8080/api",
-      "description": "Server locally hosted for testing"
-    }
-  ],
-  "tags": [
-    {
-      "name": "language",
-      "description": "Collection of well known programming languages",
-      "externalDocs": {
-        "description": "Find out more",
-        "url": "http://swagger.io"
-      }
-    },
-    {
-      "name": "creator",
-      "description": "Information about creators of programing languages"
-    }
-  ],
-  "paths": {
-    "/languages": {
-      "get": {
-        "tags": [
-          "language"
-        ],
-        "responses": {
-          "200": {
-            "description": "normal operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/LanguagesWrapper"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "language"
-        ],
-        "summary": "Add a new programming language to the collection",
-        "operationId": "addLanguage",
-        "requestBody": {
-          "$ref": "#/components/requestBodies/Language"
+    "openapi": "3.0.3",
+    "info": {
+        "description": "Ovaj API pruža pristup skupu podataka opisuje razne\nprogramske jezike te njihove detalje i funkcionalnosti.\n",
+        "version": "1.0.0",
+        "title": "Programski Jezici",
+        "contact": {
+            "email": "marko.filipovic@fer.hr"
         },
-        "responses": {
-          "201": {
-            "description": "created new programming language entry",
-            "headers": {
-              "Location": {
-                "description": "Location where one can access the created entry",
-                "style": "simple",
-                "explode": false,
-                "schema": {
-                  "type": "string"
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+    },
+    "servers": [
+        {
+            "description": "Server locally hosted for testing",
+            "url": "http://localhost:8080/api"
+        }
+    ],
+    "tags": [
+        {
+            "name": "language",
+            "description": "Collection of well known programming languages",
+            "externalDocs": {
+                "description": "Find out more",
+                "url": "http://swagger.io"
+            }
+        },
+        {
+            "name": "creator",
+            "description": "Information about creators of programing languages"
+        }
+    ],
+    "paths": {
+        "/languages": {
+            "post": {
+                "tags": [
+                    "language"
+                ],
+                "summary": "Add a new programming language to the collection",
+                "operationId": "addLanguage",
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/Language"
+                },
+                "responses": {
+                    "201": {
+                        "description": "created new programming language entry",
+                        "headers": {
+                            "Location": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "description": "Location where one can access the created entry"
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid status value",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    },
+                    "405": {
+                        "description": "Invalid input",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
                 }
-              }
             },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiResponse"
+            "get": {
+                "tags": [
+                    "language"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "normal operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/LanguagesWrapper"
+                                }
+                            }
+                        }
+                    }
                 }
-              }
             }
-          },
-          "400": {
-            "description": "Invalid status value",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiResponse"
-                }
-              }
-            }
-          },
-          "405": {
-            "description": "Invalid input",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/languages/{languageId}": {
-      "get": {
-        "tags": [
-          "language"
-        ],
-        "summary": "Find language by Id",
-        "description": "Returns a single programming language entry",
-        "operationId": "getLangById",
-        "parameters": [
-          {
-            "name": "languageId",
-            "in": "path",
-            "description": "ID of programming language to return",
-            "required": true,
-            "style": "simple",
-            "explode": false,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/LanguageWrapper"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/LanguageWrapper"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid ID supplied"
-          },
-          "404": {
-            "description": "Language not found"
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "language"
-        ],
-        "summary": "Updates a programming language entry using form data",
-        "operationId": "updateLangWithForm",
-        "parameters": [
-          {
-            "name": "languageId",
-            "in": "path",
-            "description": "ID of programming language to update",
-            "required": true,
-            "style": "simple",
-            "explode": false,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Language"
-              }
-            }
-          }
         },
-        "responses": {
-          "200": {
-            "description": "langage entry succesfuly updated",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiResponse"
+        "/languages/{languageId}": {
+            "get": {
+                "tags": [
+                    "language"
+                ],
+                "summary": "Find language by Id",
+                "description": "Returns a single programming language entry",
+                "operationId": "getLangById",
+                "parameters": [
+                    {
+                        "name": "languageId",
+                        "in": "path",
+                        "description": "ID of programming language to return",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/LanguageWrapper"
+                                }
+                            },
+                            "application/xml": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/LanguageWrapper"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "Language not found"
+                    }
                 }
-              }
-            }
-          },
-          "405": {
-            "description": "Invalid input",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiResponse"
+            },
+            "put": {
+                "tags": [
+                    "language"
+                ],
+                "summary": "Updates a programming language entry using form data",
+                "operationId": "updateLangWithForm",
+                "parameters": [
+                    {
+                        "name": "languageId",
+                        "in": "path",
+                        "description": "ID of programming language to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "langage entry succesfuly updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    },
+                    "405": {
+                        "description": "Invalid input",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Language"
+                            }
+                        }
+                    }
                 }
-              }
+            },
+            "delete": {
+                "tags": [
+                    "language"
+                ],
+                "summary": "Deletes a language entry",
+                "operationId": "deleteLang",
+                "parameters": [
+                    {
+                        "name": "api_key",
+                        "in": "header",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "languageId",
+                        "in": "path",
+                        "description": "Id of language entry to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Succesful deletion",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid ID supplied",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Pet not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
             }
-          }
+        },
+        "/languages/{languageId}/creators": {
+            "put": {
+                "tags": [
+                    "creators"
+                ],
+                "summary": "change list of language creators",
+                "operationId": "setLangCreators",
+                "parameters": [
+                    {
+                        "name": "languageId",
+                        "in": "path",
+                        "description": "ID of language entry to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successfuly updated languages creators",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/Creator"
+                                }
+                            }
+                        },
+                        "application/xml": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/Creator"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "creators"
+                ],
+                "description": "Returns creators of a desired programming language",
+                "operationId": "getLangCreators",
+                "parameters": [
+                    {
+                        "name": "languageId",
+                        "in": "path",
+                        "description": "ID of language entry to return",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CreatorsWrapper"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/languages/{languageId}/wikipedia": {
+            "get": {
+                "tags": [
+                    "language"
+                ],
+                "summary": "Find wikipedia handle string",
+                "description": "This string links to wikipedia page about the item when appended to `https://en.wikipedia.org/wiki/`",
+                "operationId": "getLangWiki",
+                "parameters": [
+                    {
+                        "name": "languageId",
+                        "in": "path",
+                        "description": "ID of language for which wiki handle needs to be fetched",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/WikiResponseWrapper"
+                                }
+                            },
+                            "application/xml": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/WikiResponseWrapper"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid ID supplied",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "wikipedia handle for language not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/languages/{languageId}/picture": {
+            "get": {
+                "tags": [
+                    "picture"
+                ],
+                "summary": "Resource picture",
+                "description": "This endpoint returns the picture of this resource from the respective wikipedia article, if it exists",
+                "operationId": "getLangPic",
+                "parameters": [
+                    {
+                        "name": "languageId",
+                        "in": "path",
+                        "description": "ID of language for which image needs to be fetched",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/WikiResponseWrapper"
+                                }
+                            },
+                            "application/xml": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/WikiResponseWrapper"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid ID supplied",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "wikipedia handle or image for language not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/creators": {
+            "get": {
+                "tags": [
+                    "creators"
+                ],
+                "summary": "Returns all programming language creators",
+                "operationId": "getCreators",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CreatorsWrapper"
+                                }
+                            },
+                            "application/xml": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CreatorsWrapper"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "no creators not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/creators/{creatorId}": {
+            "get": {
+                "tags": [
+                    "creators"
+                ],
+                "summary": "Returns programming language creator by Id specified in URL",
+                "operationId": "getCreator",
+                "parameters": [
+                    {
+                        "name": "creatorId",
+                        "in": "path",
+                        "description": "ID of desired language creator",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CreatorWrapper"
+                                }
+                            },
+                            "application/xml": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CreatorWrapper"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "no creators not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
-      },
-      "delete": {
-        "tags": [
-          "language"
-        ],
-        "summary": "Deletes a language entry",
-        "operationId": "deleteLang",
-        "parameters": [
-          {
-            "name": "api_key",
-            "in": "header",
-            "required": false,
-            "style": "simple",
-            "explode": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "languageId",
-            "in": "path",
-            "description": "Id of language entry to delete",
-            "required": true,
-            "style": "simple",
-            "explode": false,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Succesful deletion",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid ID supplied",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiResponse"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Pet not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiResponse"
-                }
-              }
-            }
-          }
-        }
-      }
     },
-    "/languages/{languageId}/creators": {
-      "get": {
-        "tags": [
-          "creators"
-        ],
-        "description": "Returns creators of a desired programming language",
-        "operationId": "getLangCreators",
-        "parameters": [
-          {
-            "name": "languageId",
-            "in": "path",
-            "description": "ID of language entry to return",
-            "required": true,
-            "style": "simple",
-            "explode": false,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CreatorsWrapper"
+    "externalDocs": {
+        "description": "Find out more at github page",
+        "url": "https://github.com/mf51721/OR_lab"
+    },
+    "components": {
+        "schemas": {
+            "LanguageWrapper": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "OK"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "Successfully found desired language"
+                    },
+                    "response": {
+                        "$ref": "#/components/schemas/Language"
+                    }
                 }
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "creators"
-        ],
-        "summary": "change list of language creators",
-        "operationId": "setLangCreators",
-        "parameters": [
-          {
-            "name": "languageId",
-            "in": "path",
-            "description": "ID of language entry to update",
-            "required": true,
-            "style": "simple",
-            "explode": false,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
+            },
+            "LanguagesWrapper": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "OK"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "Successfully found desired languages"
+                    },
+                    "response": {
+                        "$ref": "#/components/schemas/LanguageArray"
+                    }
+                }
+            },
+            "CreatorWrapper": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "OK"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "Successfully found desired creator"
+                    },
+                    "response": {
+                        "$ref": "#/components/schemas/Creator"
+                    }
+                }
+            },
+            "CreatorsWrapper": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "OK"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "Succesfully found desired creators"
+                    },
+                    "response": {
+                        "$ref": "#/components/schemas/CreatorArray"
+                    }
+                }
+            },
+            "WikiResponse": {
+                "type": "object",
+                "properties": {
+                    "handle": {
+                        "type": "string",
+                        "example": "C_(programming_language)"
+                    },
+                    "links": {
+                        "$ref": "#/components/schemas/LinkArray"
+                    }
+                },
+                "xml": {
+                    "name": "wiki"
+                }
+            },
+            "WikiResponseWrapper": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "OK"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "Successfully found desired wiki handle"
+                    },
+                    "response": {
+                        "$ref": "#/components/schemas/WikiResponse"
+                    }
+                }
+            },
+            "Creator": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Dennis Ritchie"
+                    },
+                    "links": {
+                        "$ref": "#/components/schemas/LinkArray"
+                    }
+                },
+                "xml": {
+                    "name": "Tag"
+                }
+            },
+            "Language": {
+                "type": "object",
+                "required": [
+                    "name",
+                    "wikipedia",
+                    "year"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "C#"
+                    },
+                    "year": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "wikipedia": {
+                        "type": "string"
+                    },
+                    "imperative": {
+                        "type": "boolean"
+                    },
+                    "objectOriented": {
+                        "type": "boolean"
+                    },
+                    "functional": {
+                        "type": "boolean"
+                    },
+                    "procedural": {
+                        "type": "boolean"
+                    },
+                    "generic": {
+                        "type": "boolean"
+                    },
+                    "reflective": {
+                        "type": "boolean"
+                    },
+                    "creators": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Creator"
+                        }
+                    },
+                    "slika": {
+                        "type": "string"
+                    },
+                    "links": {
+                        "$ref": "#/components/schemas/LinkArray"
+                    }
+                }
+            },
+            "LanguageArray": {
+                "description": "response with all of the languages in the system",
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/Creator"
+                    "$ref": "#/components/schemas/Language"
                 }
-              }
             },
-            "application/xml": {
-              "schema": {
+            "CreatorArray": {
+                "description": "response with all of the languages in the system",
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/Creator"
+                    "$ref": "#/components/schemas/Creator"
                 }
-              }
+            },
+            "LinkArray": {
+                "description": "list of links",
+                "readOnly": true,
+                "type": "array",
+                "items": {
+                    "$ref": "#/components/schemas/Link"
+                }
+            },
+            "Link": {
+                "type": "object",
+                "readOnly": true,
+                "properties": {
+                    "href": {
+                        "type": "string",
+                        "example": "1/creators"
+                    },
+                    "rel": {
+                        "type": "string",
+                        "example": "creators"
+                    },
+                    "type": {
+                        "type": "string",
+                        "example": "GET"
+                    }
+                }
+            },
+            "ApiResponse": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "OK"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "Action successfully carried out"
+                    },
+                    "response": {
+                        "type": "string",
+                        "nullable": true,
+                        "example": null
+                    }
+                }
             }
-          }
         },
-        "responses": {
-          "200": {
-            "description": "successfuly updated languages creators",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiResponse"
-                }
-              }
+        "requestBodies": {
+            "Language": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Language"
+                        }
+                    },
+                    "application/xml": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Language"
+                        }
+                    }
+                },
+                "description": "Pet object that needs to be added to the store",
+                "required": true
             }
-          }
+        },
+        "securitySchemes": {
+            "api_key": {
+                "type": "apiKey",
+                "name": "api_key",
+                "in": "header"
+            }
         }
-      }
-    },
-    "/languages/{languageId}/wikipedia": {
-      "get": {
-        "tags": [
-          "language"
-        ],
-        "summary": "Find wikipedia handle string",
-        "description": "This string links to wikipedia page about the item when appended to `https://en.wikipedia.org/wiki/`",
-        "operationId": "getLangWiki",
-        "parameters": [
-          {
-            "name": "languageId",
-            "in": "path",
-            "description": "ID of language for which wiki handle needs to be fetched",
-            "required": true,
-            "style": "simple",
-            "explode": false,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/WikiResponseWrapper"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/WikiResponseWrapper"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid ID supplied",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiResponse"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "wikipedia handle for language not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/creators": {
-      "get": {
-        "tags": [
-          "creators"
-        ],
-        "summary": "Returns all programming language creators",
-        "operationId": "getCreators",
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CreatorsWrapper"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/CreatorsWrapper"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "no creators not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/creators/{creatorId}": {
-      "get": {
-        "tags": [
-          "creators"
-        ],
-        "summary": "Returns programming language creator by Id specified in URL",
-        "operationId": "getCreator",
-        "parameters": [
-          {
-            "name": "creatorId",
-            "in": "path",
-            "description": "ID of desired language creator",
-            "required": true,
-            "style": "simple",
-            "explode": false,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CreatorWrapper"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/CreatorWrapper"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "no creators not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiResponse"
-                }
-              }
-            }
-          }
-        }
-      }
     }
-  },
-  "components": {
-    "schemas": {
-      "LanguageWrapper": {
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "string",
-            "example": "OK"
-          },
-          "message": {
-            "type": "string",
-            "example": "Successfully found desired language"
-          },
-          "response": {
-            "$ref": "#/components/schemas/Language"
-          }
-        }
-      },
-      "LanguagesWrapper": {
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "string",
-            "example": "OK"
-          },
-          "message": {
-            "type": "string",
-            "example": "Successfully found desired languages"
-          },
-          "response": {
-            "$ref": "#/components/schemas/LanguageArray"
-          }
-        }
-      },
-      "CreatorWrapper": {
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "string",
-            "example": "OK"
-          },
-          "message": {
-            "type": "string",
-            "example": "Successfully found desired creator"
-          },
-          "response": {
-            "$ref": "#/components/schemas/Creator"
-          }
-        }
-      },
-      "CreatorsWrapper": {
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "string",
-            "example": "OK"
-          },
-          "message": {
-            "type": "string",
-            "example": "Succesfully found desired creators"
-          },
-          "response": {
-            "$ref": "#/components/schemas/CreatorArray"
-          }
-        }
-      },
-      "WikiResponse": {
-        "type": "object",
-        "properties": {
-          "handle": {
-            "type": "string",
-            "example": "C_(programming_language)"
-          },
-          "links": {
-            "$ref": "#/components/schemas/LinkArray"
-          }
-        },
-        "xml": {
-          "name": "wiki"
-        }
-      },
-      "WikiResponseWrapper": {
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "string",
-            "example": "OK"
-          },
-          "message": {
-            "type": "string",
-            "example": "Successfully found desired wiki handle"
-          },
-          "response": {
-            "$ref": "#/components/schemas/WikiResponse"
-          }
-        }
-      },
-      "Creator": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "name": {
-            "type": "string",
-            "example": "Dennis Ritchie"
-          },
-          "links": {
-            "$ref": "#/components/schemas/LinkArray"
-          }
-        },
-        "xml": {
-          "name": "Tag"
-        }
-      },
-      "Language": {
-        "required": [
-          "name",
-          "wikipedia",
-          "year"
-        ],
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "name": {
-            "type": "string",
-            "example": "C#"
-          },
-          "year": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "wikipedia": {
-            "type": "string"
-          },
-          "imperative": {
-            "type": "boolean"
-          },
-          "objectOriented": {
-            "type": "boolean"
-          },
-          "functional": {
-            "type": "boolean"
-          },
-          "procedural": {
-            "type": "boolean"
-          },
-          "generic": {
-            "type": "boolean"
-          },
-          "reflective": {
-            "type": "boolean"
-          },
-          "creators": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Creator"
-            }
-          },
-          "links": {
-            "$ref": "#/components/schemas/LinkArray"
-          }
-        }
-      },
-      "LanguageArray": {
-        "type": "array",
-        "description": "response with all of the languages in the system",
-        "items": {
-          "$ref": "#/components/schemas/Language"
-        }
-      },
-      "CreatorArray": {
-        "type": "array",
-        "description": "response with all of the languages in the system",
-        "items": {
-          "$ref": "#/components/schemas/Creator"
-        }
-      },
-      "LinkArray": {
-        "type": "array",
-        "description": "list of links",
-        "readOnly": true,
-        "items": {
-          "$ref": "#/components/schemas/Link"
-        }
-      },
-      "Link": {
-        "type": "object",
-        "properties": {
-          "href": {
-            "type": "string",
-            "example": "1/creators"
-          },
-          "rel": {
-            "type": "string",
-            "example": "creators"
-          },
-          "type": {
-            "type": "string",
-            "example": "GET"
-          }
-        },
-        "readOnly": true
-      },
-      "ApiResponse": {
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "string",
-            "example": "OK"
-          },
-          "message": {
-            "type": "string",
-            "example": "Action successfully carried out"
-          },
-          "response": {
-            "type": "string",
-            "nullable": true
-          }
-        }
-      }
-    },
-    "requestBodies": {
-      "Language": {
-        "description": "Pet object that needs to be added to the store",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/Language"
-            }
-          },
-          "application/xml": {
-            "schema": {
-              "$ref": "#/components/schemas/Language"
-            }
-          }
-        },
-        "required": true
-      }
-    },
-    "securitySchemes": {
-      "api_key": {
-        "type": "apiKey",
-        "name": "api_key",
-        "in": "header"
-      }
-    }
-  }
 }

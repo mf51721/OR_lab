@@ -11,8 +11,6 @@ info:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
 servers:
-  - description: SwaggerHub API Auto Mocking
-    url: https://virtserver.swaggerhub.com/AywarZ/lab3/1.0.0
   - description: Server locally hosted for testing
     url: 'http://localhost:8080/api'
 tags:
@@ -254,6 +252,43 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
+  '/languages/{languageId}/picture':
+    get:
+      tags:
+        - picture
+      summary: Resource picture
+      description: This endpoint returns the picture of this resource from the respective wikipedia article, if it exists
+      operationId: getLangPic
+      parameters:
+        - name: languageId
+          in: path
+          description: ID of language for which image needs to be fetched
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WikiResponseWrapper'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/WikiResponseWrapper'
+        '400':
+          description: Invalid ID supplied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '404':
+          description: wikipedia handle or image for language not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
   '/creators':
     get:
       tags:
@@ -423,6 +458,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Creator'
+        slika:
+          type: string
         links:
           $ref: '#/components/schemas/LinkArray'
     LanguageArray:
