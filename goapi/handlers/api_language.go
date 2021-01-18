@@ -177,3 +177,24 @@ func (h *Handler) UpdateLangWithForm(c *gin.Context) {
 		Message: fmt.Sprintf("Languge with ID %v was successfully updated", langId),
 	})
 }
+
+//GetLangPic -
+func (h *Handler) GetLangPic(c *gin.Context) {
+	rawLangId, ok := c.Params.Get("languageId")
+	if !ok {
+		c.JSON(http.StatusBadRequest, fmodels.RespBadRequest)
+		return
+	}
+	langId, err := strconv.Atoi(rawLangId)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, fmodels.RespBadRequest)
+		return
+	}
+
+	h.ls.GetPic(uint(langId))
+
+	var fs http.FileSystem = http.Dir("")
+	filename := "resources/" + fmt.Sprint(langId) + ".png"
+
+	c.FileFromFS(filename, fs)
+}

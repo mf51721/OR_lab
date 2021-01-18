@@ -24,4 +24,6 @@ type Language struct {
 	Reflective bool `json:"reflective,omitempty"`
 
 	Creators []Creator `gorm:"many2many:language_creators" json:"creators,omitempty"`
+
+	Slika string `json:"slika"`
 }

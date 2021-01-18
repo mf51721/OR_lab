@@ -118,6 +118,13 @@ func (s *ApiServer) GetRoutes() Routes {
 			"/languages/:languageId",
 			handler.UpdateLangWithForm,
 		},
+
+		{
+			"GetLangPic",
+			http.MethodGet,
+			"/languages/:languageId/picture",
+			handler.GetLangPic,
+		},
 	}
 
 }

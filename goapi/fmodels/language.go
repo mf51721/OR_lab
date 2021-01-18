@@ -1,6 +1,7 @@
 package fmodels
 
 import (
+	"fmt"
 	"strconv"
 
 	"github.com/mf51721/OR_lab/goapi/models"
@@ -31,6 +32,8 @@ type Language struct {
 
 	// list of links
 	Links []Link `json:"links"`
+
+	Slika string `json:"slika"`
 }
 
 func (l Language) FromModel(language models.Language) Language {
@@ -50,6 +53,7 @@ func (l Language) FromModel(language models.Language) Language {
 		c = append(c, Creator{}.FromModel(creator))
 	}
 	l.Creators = c
+	l.Slika = "http://localhost:8080/api/languages/" + fmt.Sprint(l.Id) + "/picture"
 
 	return l
 }
