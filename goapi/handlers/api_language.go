@@ -3,6 +3,7 @@ package handlers
 import (
 	"fmt"
 	"net/http"
+	"os"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
@@ -196,5 +197,13 @@ func (h *Handler) GetLangPic(c *gin.Context) {
 	var fs http.FileSystem = http.Dir("")
 	filename := "resources/" + fmt.Sprint(langId) + ".png"
 
-	c.FileFromFS(filename, fs)
+	if os.IsNotExist(err) {
+		c.JSON(http.StatusNotFound, fmodels.ApiResponse{
+			Status:  "Image not found",
+			Message: "The remote source does not have the picture specified",
+		})
+	} else {
+		c.FileFromFS(filename, fs)
+	}
+
 }

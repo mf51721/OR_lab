@@ -95,6 +95,9 @@ func (s *LanguageServiceImpl) GetPic(id uint) (*models.Language, error) {
 
 		result := map[string]interface{}{}
 		json.Unmarshal([]byte(bodyStr), &result)
+		if result["originalimage"] == nil {
+			return nil, nil
+		}
 		originalimage := result["originalimage"].(map[string]interface{})
 		var imgurl string
 
@@ -110,14 +113,12 @@ func (s *LanguageServiceImpl) GetPic(id uint) (*models.Language, error) {
 		}
 		defer imgresponse.Body.Close()
 
-		//open a file for writing
 		file, err := os.Create(filename)
 		if err != nil {
 			log.Fatal(err)
 		}
 		defer file.Close()
 
-		// Use io.Copy to just dump the response body to the file. This supports huge files
 		_, err = io.Copy(file, imgresponse.Body)
 		if err != nil {
 			log.Fatal(err)
