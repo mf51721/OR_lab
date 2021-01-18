@@ -1,6 +1,8 @@
-# Otvoreno Računarstvo - 3. laboratorijska vježba
+# Otvoreno Računarstvo - 4. laboratorijska vježba
 
 API koji izlaže bazu podataka programskih jezika.
+
+GET zahtjev na /api/languages/:id/picture vraća sliku resursa s wikipedije, ako postoji.
 
 ### Pokretanje
 
