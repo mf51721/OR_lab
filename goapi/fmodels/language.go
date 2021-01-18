@@ -8,6 +8,8 @@ import (
 )
 
 type Language struct {
+	Cont Context `json:"@context"`
+
 	Id int64 `json:"id,omitempty"`
 
 	Name string `json:"name"`
@@ -37,6 +39,8 @@ type Language struct {
 }
 
 func (l Language) FromModel(language models.Language) Language {
+	l.Cont.Name = "https://schema.org/name"
+	l.Cont.Year = "https://schema.org/datePublished"
 	l.Id = int64(language.ID)
 	l.Name = language.Name
 	l.Year = language.Year
