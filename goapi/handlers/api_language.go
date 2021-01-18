@@ -196,6 +196,7 @@ func (h *Handler) GetLangPic(c *gin.Context) {
 
 	var fs http.FileSystem = http.Dir("")
 	filename := "resources/" + fmt.Sprint(langId) + ".png"
+	_, err = os.Stat(filename)
 
 	if os.IsNotExist(err) {
 		c.JSON(http.StatusNotFound, fmodels.ApiResponse{
