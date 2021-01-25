@@ -1,0 +1,296 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://example.com/example.json",
+    "type": "array",
+    "title": "OR Programski jezici",
+    "description": "Skup programskih jezika za otvoreno računarstvo",
+    "examples": [
+        {
+            "data": [
+                {
+                    "name": "C",
+                    "year": 1972,
+                    "wikipedia": "C_(programming_language)",
+                    "imperative": true,
+                    "object_oriented": false,
+                    "functional": false,
+                    "procedural": true,
+                    "generic": true,
+                    "reflective": false,
+                    "creators": [
+                        {
+                            "name": "Dennis Ritchie"
+                        },
+                        {
+                            "name": "Bell Labs"
+                        }
+                    ]
+                },
+                {
+                    "name": "Assembly",
+                    "year": 1949,
+                    "wikipedia": "Assembly_language",
+                    "imperative": true,
+                    "object_oriented": false,
+                    "functional": false,
+                    "procedural": false,
+                    "generic": false,
+                    "reflective": false,
+                    "creators": [
+                        {
+                            "name": "Maurice Vincent Wilkes"
+                        },
+                        {
+                            "name": "David John Wheeler"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "required": [
+        "data"
+    ],
+    "properties": {
+        "data": {
+            "$id": "#/properties/data",
+            "type": "array",
+            "title": "The root data schema",
+            "description": "The root "data" array holds all the objects in the set",
+            "default": [],
+            "examples": [
+                [
+                    {
+                        "name": "C",
+                        "year": 1972,
+                        "wikipedia": "C_(programming_language)",
+                        "imperative": true,
+                        "object_oriented": false,
+                        "functional": false,
+                        "procedural": true,
+                        "generic": true,
+                        "reflective": false,
+                        "creators": [
+                            {
+                                "name": "Dennis Ritchie"
+                            },
+                            {
+                                "name": "Bell Labs"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Assembly",
+                        "year": 1949,
+                        "wikipedia": "Assembly_language",
+                        "imperative": true,
+                        "object_oriented": false,
+                        "functional": false,
+                        "procedural": false,
+                        "generic": false,
+                        "reflective": false,
+                        "creators": [
+                            {
+                                "name": "Maurice Vincent Wilkes"
+                            },
+                            {
+                                "name": "David John Wheeler"
+                            }
+                        ]
+                    }
+                ]
+            ],
+            "additionalItems": true,
+            "items": {
+                "$id": "#/properties/data/items",
+                "anyOf": [
+                    {
+                        "$id": "#/properties/data/items/anyOf/0",
+                        "type": "object",
+                        "title": "A Programming Language",
+                        "description": "One singular instance of a programming language from this dataset",
+                        "default": {},
+                        "examples": [
+                            {
+                                "name": "C",
+                                "year": 1972,
+                                "wikipedia": "C_(programming_language)",
+                                "imperative": true,
+                                "object_oriented": false,
+                                "functional": false,
+                                "procedural": true,
+                                "generic": true,
+                                "reflective": false,
+                                "creators": [
+                                    {
+                                        "name": "Dennis Ritchie"
+                                    },
+                                    {
+                                        "name": "Bell Labs"
+                                    }
+                                ]
+                            }
+                        ],
+                        "required": [
+                            "name",
+                            "year",
+                            "wikipedia",
+                            "imperative",
+                            "object_oriented",
+                            "functional",
+                            "procedural",
+                            "generic",
+                            "reflective",
+                            "creators"
+                        ],
+                        "properties": {
+                            "name": {
+                                "$id": "#/properties/data/items/anyOf/0/properties/name",
+                                "type": "string",
+                                "title": "The name schema",
+                                "description": "Programming language name.",
+                                "default": "",
+                                "examples": [
+                                    "C"
+                                ]
+                            },
+                            "year": {
+                                "$id": "#/properties/data/items/anyOf/0/properties/year",
+                                "type": "integer",
+                                "title": "The year schema",
+                                "description": "Programming language year of release.",
+                                "default": 0,
+                                "examples": [
+                                    1972
+                                ]
+                            },
+                            "wikipedia": {
+                                "$id": "#/properties/data/items/anyOf/0/properties/wikipedia",
+                                "type": "string",
+                                "title": "The wikipedia schema",
+                                "description": "Programming language wikipedia handle.",
+                                "default": "",
+                                "examples": [
+                                    "C_(programming_language)"
+                                ]
+                            },
+                            "imperative": {
+                                "$id": "#/properties/data/items/anyOf/0/properties/imperative",
+                                "type": "boolean",
+                                "title": "The imperative schema",
+                                "description": "Whether the programming language is imperative.",
+                                "default": false,
+                                "examples": [
+                                    true
+                                ]
+                            },
+                            "object_oriented": {
+                                "$id": "#/properties/data/items/anyOf/0/properties/object_oriented",
+                                "type": "boolean",
+                                "title": "The object_oriented schema",
+                                "description": "Whether the programming language is object oriented.",
+                                "default": false,
+                                "examples": [
+                                    false
+                                ]
+                            },
+                            "functional": {
+                                "$id": "#/properties/data/items/anyOf/0/properties/functional",
+                                "type": "boolean",
+                                "title": "The functional schema",
+                                "description": "Whether the programming language is functional.",
+                                "default": false,
+                                "examples": [
+                                    false
+                                ]
+                            },
+                            "procedural": {
+                                "$id": "#/properties/data/items/anyOf/0/properties/procedural",
+                                "type": "boolean",
+                                "title": "The procedural schema",
+                                "description": "Whether the programming language is procedural.",
+                                "default": false,
+                                "examples": [
+                                    true
+                                ]
+                            },
+                            "generic": {
+                                "$id": "#/properties/data/items/anyOf/0/properties/generic",
+                                "type": "boolean",
+                                "title": "The generic schema",
+                                "description": "Whether the programming language is generic.",
+                                "default": false,
+                                "examples": [
+                                    true
+                                ]
+                            },
+                            "reflective": {
+                                "$id": "#/properties/data/items/anyOf/0/properties/reflective",
+                                "type": "boolean",
+                                "title": "The reflective schema",
+                                "description": "Whether the programming language is reflective.",
+                                "default": false,
+                                "examples": [
+                                    false
+                                ]
+                            },
+                            "creators": {
+                                "$id": "#/properties/data/items/anyOf/0/properties/creators",
+                                "type": "array",
+                                "title": "The creators schema",
+                                "description": "Array of programming language creators.",
+                                "default": [],
+                                "examples": [
+                                    [
+                                        {
+                                            "name": "Dennis Ritchie"
+                                        },
+                                        {
+                                            "name": "Bell Labs"
+                                        }
+                                    ]
+                                ],
+                                "additionalItems": true,
+                                "items": {
+                                    "$id": "#/properties/data/items/anyOf/0/properties/creators/items",
+                                    "anyOf": [
+                                        {
+                                            "$id": "#/properties/data/items/anyOf/0/properties/creators/items/anyOf/0",
+                                            "type": "object",
+                                            "title": "Creator object",
+                                            "description": "An instance of an object that describes the language creator.",
+                                            "default": {},
+                                            "examples": [
+                                                {
+                                                    "name": "Dennis Ritchie"
+                                                }
+                                            ],
+                                            "required": [
+                                                "name"
+                                            ],
+                                            "properties": {
+                                                "name": {
+                                                    "$id": "#/properties/data/items/anyOf/0/properties/creators/items/anyOf/0/properties/name",
+                                                    "type": "string",
+                                                    "title": "The creator name schema",
+                                                    "description": "The string which is the name of this language creator.",
+                                                    "default": "",
+                                                    "examples": [
+                                                        "Dennis Ritchie"
+                                                    ]
+                                                }
+                                            },
+                                            "additionalProperties": true
+                                        }
+                                    ]
+                                }
+                            }
+                        },
+                        "additionalProperties": true
+                    }
+                ]
+            }
+        }
+    },
+    "additionalProperties": true
+} 
